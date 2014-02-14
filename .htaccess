@@ -1,0 +1,96 @@
+Options -Indexes
+
+<Files .htaccess>
+    order allow,deny
+    deny from all
+</Files>
+
+#Far Future Expires Header
+<FilesMatch "\.(ico|pdf|flv|jpg|jpeg|png|gif|swf|mp3|mp4|js|css|svg)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 10 years"
+</FilesMatch>
+
+#2 hours
+<FilesMatch "\.(html|htm|xml|txt|xsl)$">
+    Header set Cache-Control "max-age=7200, must-revalidate"
+</FilesMatch>
+
+<IfModule mod_gzip.c>
+    mod_gzip_on       Yes
+    mod_gzip_dechunk  Yes
+    mod_gzip_item_include file      \.(html?|txt|css|js|php|pl|svg|xml|xsl)$
+    mod_gzip_item_include handler   ^cgi-script$
+    mod_gzip_item_include mime      ^text/.*
+    mod_gzip_item_include mime      ^application/x-javascript.*
+    mod_gzip_item_exclude mime      ^image/.*
+    mod_gzip_item_exclude rspheader ^Content-Encoding:.*gzip.*
+</IfModule>
+
+AddDefaultCharset UTF-8
+AddCharset UTF-8 .html .htm .php .css .js .xml .txt .xsl .svg
+
+#RewriteCond %{QUERY_STRING} ^.*=(ht|f)tp\://.*$ [NC]
+# Allow yourself, for SMF Forum Package Manager upgrades.
+# Set it to your own IP address so you are the only one who won't be blocked.
+#RewriteCond %{REMOTE_ADDR} !^111\.222\.333\.444$ [NC]
+#RewriteRule .* - [F,L]
+
+ErrorDocument 400 /error/400.php
+ErrorDocument 401 /error/401.php
+ErrorDocument 403 /error/403.php
+ErrorDocument 404 /error/404.php
+ErrorDocument 500 /error/500.php
+
+RewriteEngine On
+
+
+# From http://derek.io/blog/2009/auto-versioning-javascript-and-css-files/
+#RewriteCond %{REQUEST_FILENAME} !-s # Ensure the file does not actually exist
+RewriteRule ^(.*)\.[0-9]+\.(css|js)$ $1.$2 [L] # Strip the version number to serve the actual file
+
+#Rules for Versioned Static Files
+#RewriteRule ^/assets/(css|js)/(.+)\.(.+)\.(css|js)$ $1/$2.$4 [L]
+
+RewriteBase /
+
+# From David Walsh -- remove www
+#RewriteCond %{HTTP_HOST} !^mandoa.org$ [NC]
+#RewriteRule ^(.*)$ http://mandoa.org/$1 [R=307]
+
+# From Google Webmaster Forums -- hide index.php
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\ HTTP/
+RewriteRule ^(.*)index\.(html|php)$ http://%{HTTP_HOST}/$1 [R=301,L]
+
+# Rewrite page vars as html requests for SEO
+#RewriteRule ^([^/]+)\.html$ /index.php?page=$1 [L]
+#RewriteRule ^/(.*)\.html$ /index.php?page=$1 [PT]
+# Rewrite saveme.php as saveimage.png and set MIME type to png
+RewriteRule ^saveimage.png /assets/php/saveme.php [T=image/png]
+
+# Thanks to http://www.webmasterworld.com/forum92/6079.htm
+
+# Internally rewrite static to equivalent dynamic
+RewriteRule ^([^/]+)\.html$ /index.php?page=$1 [L]
+
+# Externally redirect client requests for dynamic to equivalent static
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /index\.php\?page=([^\ ]+)\ HTTP/
+RewriteRule ^index\.php$ %1\.html? [R=301,L]
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,9}\ /\?page=([^\ ]+)\ HTTP/
+RewriteRule ^(.*)+$ %1\.html? [R=301,L]
+
+# Subdomain mapping to querystring
+
+#RewriteCond %{HTTP_HOST} !^www [NC]
+#RewriteCond %{QUERY_STRING} !page=
+#RewriteCond %{HTTP_HOST} ^([^\.]+)\.mandoa.org$ [NC]
+#RewriteRule ^(.*)$ /index.php?page=%1 [L, QSA]
+
+# Protect resources from hotlinking
+
+#RewriteCond %{HTTP_REFERER} !^$
+#RewriteCond %{HTTP_REFERER} !^http://*.mandoa.org/.*$      [NC]
+#RewriteCond %{HTTP_REFERER} !^http://*.mandoa.org$      [NC]
+#RewriteCond %{HTTP_REFERER} !^http://images.google.com/.*$      [NC]
+#RewriteCond %{HTTP_REFERER} !^http://images.google.com$      [NC]
+#RewriteRule .*\.(jpg|jpeg|gif|png|bmp|svg|mp3|wav|ogg|mpeg|mpg|avi|mov|mp4|wmv|webm|wbm|flv|swf)$ - [F,NC]

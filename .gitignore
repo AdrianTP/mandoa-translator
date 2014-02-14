@@ -1,0 +1,6 @@
+PDOErrors.txt
+temp/
+nbproject/
+assets/old_css/
+assets/php/connect.php
+*.zip

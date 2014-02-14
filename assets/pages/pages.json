@@ -1,0 +1,105 @@
+[
+	{
+		"publish": true,
+		"display": "dictionary",
+		"active": true,
+		"target": "_parent",
+		"href": "dictionary.html",
+		"page": "dictionary",
+		"title": "dictionary",
+		"description": "Mando'a/English Dictionary at Mandoa.Org - Dedicated to the preservation and growth of the Mando'a language.",
+		"keywords": "mando'a, mandoa, dictionary, language, star wars, star, wars, mandalorian, mandalorians",
+		"scripts": [
+			"/assets/js/dictionary.js"
+		],
+		"styles": []
+	}, {
+		"publish": false,
+		"display": "numbers",
+		"active": false,
+		"target": "_parent",
+		"href": "numbers.html",
+		"page": "numbers",
+		"title": "numbers and counting",
+		"description": "Mando'a Numbers and Counting at Mandoa.Org - Dedicated to the preservation and growth of the Mando'a language.",
+		"keywords": "mando'a, mandoa, numbers, counting, language, star wars, star, wars, mandalorian, mandalorians",
+		"scripts": [
+			"/assets/js/numbers.js"
+		],
+		"styles": []
+	}, {
+		"publish": false,
+		"display": "translate",
+		"active": false,
+		"target": "_parent",
+		"href": "translate.html",
+		"page": "translate",
+		"title": "translator",
+		"description": "Mando'a Full-Text Translator at Mandoa.Org - Dedicated to the preservation and growth of the Mando'a language.",
+		"keywords": "mando'a, mandoa, translator, translation, language, star wars, star, wars, mandalorian, mandalorians",
+		"scripts": [],
+		"styles": []
+	}, {
+		"publish": true,
+		"display": "transcribe",
+		"active": false,
+		"target": "_parent",
+		"href": "transcribe.html",
+		"page": "transcribe",
+		"title": "font transcription",
+		"description": "Mando'a Font Transcription at Mandoa.Org - Dedicated to the preservation and growth of the Mando'a language.",
+		"keywords": "mando'a, mandoa, font, transcribe, transcription, language, star wars, star, wars, mandalorian, mandalorians",
+		"scripts": [
+			"/assets/js/transcribe.js"
+		],
+		"styles": []
+	}, {
+		"publish": false,
+		"display": "grammar",
+		"active": false,
+		"target": "_parent",
+		"href": "grammar.html",
+		"page": "grammar",
+		"title": "grammar and syntax",
+		"description": "Mando'a Grammar Guide at Mandoa.Org - Dedicated to the preservation and growth of the Mando'a language.",
+		"keywords": "mando'a, mandoa, grammar, syntax, language, star wars, star, wars, mandalorian, mandalorians",
+		"scripts": [],
+		"styles": []
+	}, {
+		"publish": false,
+		"display": "history",
+		"active": false,
+		"target": "_parent",
+		"href": "history.html",
+		"page": "history",
+		"title": "history and culture",
+		"description": "History of Mandalorians and Mando'a, both in-universe and out, at Mandoa.Org - Dedicated to the preservation and growth of the Mando'a language.",
+		"keywords": "mando'a, mandoa, history, about, culture, lore, story, timeline, language, star wars, star, wars, mandalorian, mandalorians, boba fett, boba, fett, jango fett, jango, fett, jaster mereel, jaster, mereel, deathwatch, mandalore, canderous ordo, canderous, ordo, concord dawn, concord, dawn",
+		"scripts": [],
+		"styles": []
+	}, {
+		"publish": true,
+		"display": "forum",
+		"active": false,
+		"target": "_blank",
+		"href": "//forum.mandoa.org",
+		"page": "forum",
+		"title": "forum",
+		"description": "",
+		"keywords": "",
+		"scripts": [],
+		"styles": []
+	}, {
+		"publish": false,
+		"display": "contact",
+		"active": false,
+		"target": "_blank",
+		"href": "contact.html",
+		"page": "contact",
+		"title": "contact",
+		"description": "",
+		"keywords": "",
+		"scripts": [],
+		"styles": []
+	}
+]

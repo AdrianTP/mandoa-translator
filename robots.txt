@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: 
+Disallow: /css/
+Disallow: /error/
+Disallow: /antiques/
+Disallow: /stuff/
+Disallow: /testing/
+Sitemap: http://mandoa.org/sitemap.xml
