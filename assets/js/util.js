@@ -4,7 +4,7 @@
     var _typeof = function (item) {
         return Object.prototype.toString.call(item).replace("[object ","").replace("]","").toLowerCase();
     };
-    
+
     // determines whether the passed object has the specified property
     var hasProperty = function(obj, prop) {
 	if (!!obj.hasOwnProperty) {
@@ -59,14 +59,14 @@
             kind: kind
         };
     };
-	
+
 	// returns a dom node of the specified type; if text is specified, it is inserted into the node
 	var domNode = function(type, text) {
 		var node = document.createElement(type);
 		if (text) node.appendChild(document.createTextNode(text));
 		return node;
 	};
-	
+
 	// safely removes a node and all event handlers and all children recursively to prevent memory leaks -- thanks Douglas Crockford (modified for my personal style)
 	var purgeNode = function(node) {
 		var attr = node.attributes, l, n;
@@ -85,7 +85,7 @@
 			}
 		}
 	};
-	
+
 	// helper object for element handler -- lookup table for nodeTypes
 	var NODE_TYPES = {
 		"ELEMENT_NODE": 1,
@@ -101,7 +101,7 @@
 		"DOCUMENT_FRAGMENT_NODE": 11,
 		"NOTATION_NODE": 12
 	};
-	
+
 	// helper function for element handler -- converts a NodeList to a plain Array
 	var arrayFromNodeList = function(nodeList, nodeType) {
 		var array = [];
@@ -110,11 +110,11 @@
 		var type = (filter) ? nodeType.toUpperCase() : null;
 		var cleanNodeList = (type === "CLEAN");
 		var NODE_TYPE = (filter) ? NODE_TYPES[nodeType.toUpperCase()] : null;
-		
+
 		for (var i = length >>> 0; i --;) {
 			var node = nodeList[i];
 			var hasNodeType = (_typeof(node.nodeType) !== "undefined" && node.nodeType !== null && !isNaN(node.nodeType));
-			
+
 			if (!filter) {																	// if nodeType not specified
 				array[i] = node;																// convert all
 			} else if (hasNodeType && cleanNodeList) {										// if nodeType === "CLEAN"
@@ -125,7 +125,7 @@
 		}
 		return array;
 	};
-	
+
 	// helper function for element handler -- determines if passed object contains *only* nodes
 	var containsOnlyNodes = function(nodeList) {
 		var array = arrayFromNodeList(nodeList);
@@ -134,7 +134,7 @@
 		}
 		return true;
 	};
-	
+
 	// helper function for element handler -- determines if passed object contains *any* nodes
 	var containsAnyNodes = function(nodeList) {
 		var array = arrayFromNodeList(nodeList);
@@ -143,18 +143,18 @@
 		}
 		return false;
 	};
-	
+
 	// helper function for element handler -- determines if passed object is a live list
 	var isLive = function(item) {
 		var type = _typeof(item);
 		return (type === "nodelist" || type === "htmlcollection");
 	};
-	
+
 	// basic element handler
 	var element = function(el, filter) {
 		var type = _typeof(el);
 		var onlyEls = filter || false;
-		
+
 		if (el.nodeType) { // if single node, return single node in array to standardize output format
 			return [el];
 		} else if (type === "string" && el.replace(/\s+/, "").length > 0) { // if string, process as selector and return results as array of elements
@@ -166,7 +166,7 @@
 			return false;
 		}
 	};
-	
+
 	// basic cross-browser event listener
 	var addEvent = function(element, type, fn) {
 		var types = type.replace(/[.][a-z]+[^,]/gi, "").replace(/\s+/g, "").split(",");
@@ -181,7 +181,7 @@
 			else element.setAttribute("on"+types[i], fn);
 		}
 	};
-	
+
 	// basic cross-browser event remover
 	var removeEvent = function(element, type, fn) {
 		var types = type.replace(/[.][a-z]+[^,]/gi, "").replace(/\s+/g, "").split(",");
@@ -196,9 +196,9 @@
 			else element.removeAttribute("on"+types[i]);
 		}
 	}
-	
+
 	var callbacks = {};
-	
+
 	// basic cross-browser event delegation
 	var on = function(type, parentEl, childEls, fn) {
 		var parent = element(parentEl, false);
@@ -220,7 +220,7 @@
 		}
 		addEvent(parent[0], type, something);
 	}
-	
+
 	// basic cross-browser event delegation removal
 	/* Doesn't work yet, just a placeholder for proof-of-concept and future modification/experimentation */
 	var off = function(type, selector) {
@@ -231,21 +231,21 @@
 			removeEvent(window.document, current, something);
 		}
 	}
-	
+
 	// basic cross-browser classList implementations
 	var _classList = function(element) {
 		return element.classList() || element.className.split(/\s+/);
 	};
-	
+
 	/*
 	function hasClass(ele,cls) {
 		return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
 	}
-	 
+
 	function addClass(ele,cls) {
 		if (!this.hasClass(ele,cls)) ele.className += " "+cls;
 	}
-	 
+
 	function removeClass(ele,cls) {
 		if (hasClass(ele,cls)) {
 			var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
@@ -253,12 +253,12 @@
 		}
 	}
 	*/
-	
+
 	var hasClass = function(element, classToCheck) {
 		//return (element.className.indexOf(classToCheck) > -1);
 		return element.className.match(new RegExp('(\\s|^)' + classToCheck + '(\\s|$)'));
 	};
-	
+
 	var addClass = function(element, classToAdd) {
 		if (!hasClass(element, classToAdd)) {
 			if (hasProperty(element, "classList")) {
@@ -276,7 +276,7 @@
 //			return (element.hasOwnProperty("classList") && _typeof(element.classList.add) !== "function") ? (element.className += " " + classToAdd) : (element.classList.add(classToAdd));
 		}*/
 	};
-	
+
 	var removeClass = function(element, classToRemove) {
 		if (hasClass(element, classToRemove)) {
 			if (hasProperty(element, "classList")) {
@@ -295,7 +295,7 @@
 //			return (element.hasOwnProperty("classList") && _typeof(element.classList.remove) !== "function") ? (" " + element.className + " ").replace(" " + classToRemove + " ", " ") : element.classList.remove(classToRemove);
 		}*/
 	};
-	
+
 	var toggleClass = function(element, classToToggle) {
 		if (!hasProperty(element, "classList")) {// && _typeof(element.classList.toggle) !== "function") {
 			if (hasClass(element, classToToggle)) {
@@ -308,7 +308,7 @@
 		}
 //		return (element.hasOwnProperty("classList") && _typeof(element.classList.toggle) !== "function") ? ((hasClass(classToToggle)) ? removeClass : addClass)(element, classToToggle) : element.classList.toggle(classToToggle);
 	};
-	
+
 	// basic browser statistics method
 	var browser = function(feature) {
 		switch (feature) {
@@ -320,7 +320,7 @@
 				break;
 		}
 	};
-	
+
 	// test for feature support
 	var support = function(feature) {
 		switch (feature) {
@@ -334,13 +334,31 @@
 			case "classList":
 				return (_typeof(document.body.classList) === "DOMTokenList");
 				break;
+            case 'localStorage':
+                try {
+                    if (window['localStorage'] !== null) {
+                        try {
+                            localStorage.setItem('mandoaTest', '1');
+                            localStorage.removeItem('mandoaTest');
+                            return true;
+                        } catch(e) {
+                            return false;
+                        }
+                    }
+                } catch(e) {
+                    return false;
+                }
+                break;
+            case 'Array.prototype.filter':
+                return typeof Array.prototype.filter == 'function';
+                break;
 			default:
 				return false;
 				break;
 		}
 	};
-	
-	// test if event is supported 
+
+	// test if event is supported
 	var supportEvent = (function() {
 		var TAGNAMES = {
 			"select": "input",
@@ -351,7 +369,7 @@
 			"load": "img",
 			"abort": "img"
 		};
-		
+
 		var supportEvent = function(name) {
 			var el = document.createElement(TAGNAMES[name] || "div");
 			eName = "on" + name;
